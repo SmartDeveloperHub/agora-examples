@@ -1,0 +1,233 @@
+@prefix : <http://agora.org/amovies#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix dbp: <http://dbpedia.org/property/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix amovies: <http://agora.org/amovies#> .
+@prefix dbpedia-owl: <http://dbpedia.org/ontology/> .
+@base <http://agora.org/amovies> .
+
+<http://agora.org/amovies> rdf:type owl:Ontology .
+
+
+#################################################################
+#
+#    Datatypes
+#
+#################################################################
+
+
+###  http://www.w3.org/2001/XMLSchema#date
+
+xsd:date rdf:type rdfs:Datatype .
+
+
+
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  http://dbpedia.org/ontology/director
+
+dbpedia-owl:director rdf:type owl:ObjectProperty .
+
+
+
+###  http://dbpedia.org/ontology/distributor
+
+dbpedia-owl:distributor rdf:type owl:ObjectProperty .
+
+
+
+###  http://dbpedia.org/ontology/location
+
+dbpedia-owl:location rdf:type owl:ObjectProperty .
+
+
+
+###  http://dbpedia.org/ontology/regionalLanguage
+
+dbpedia-owl:regionalLanguage rdf:type owl:ObjectProperty .
+
+
+
+###  http://dbpedia.org/ontology/spokenIn
+
+dbpedia-owl:spokenIn rdf:type owl:ObjectProperty .
+
+
+
+###  http://dbpedia.org/ontology/starring
+
+dbpedia-owl:starring rdf:type owl:ObjectProperty .
+
+
+
+###  http://xmlns.com/foaf/0.1/depiction
+
+foaf:depiction rdf:type owl:ObjectProperty .
+
+
+
+
+
+#################################################################
+#
+#    Data properties
+#
+#################################################################
+
+
+###  http://dbpedia.org/ontology/birthDate
+
+dbpedia-owl:birthDate rdf:type owl:DatatypeProperty ;
+                      
+                      rdfs:range xsd:date ;
+                      
+                      rdfs:domain foaf:Person .
+
+
+
+###  http://dbpedia.org/ontology/budget
+
+dbpedia-owl:budget rdf:type owl:DatatypeProperty .
+
+
+
+###  http://dbpedia.org/ontology/releaseDate
+
+dbpedia-owl:releaseDate rdf:type owl:DatatypeProperty .
+
+
+
+###  http://dbpedia.org/property/birthName
+
+dbp:birthName rdf:type owl:DatatypeProperty ;
+              
+              rdfs:range xsd:string ;
+              
+              rdfs:domain foaf:Person .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://dbpedia.org/ontology/Actor
+
+dbpedia-owl:Actor rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf foaf:Person .
+
+
+
+###  http://dbpedia.org/ontology/Company
+
+dbpedia-owl:Company rdf:type owl:Class ;
+                    
+                    rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty dbpedia-owl:location ;
+                                      owl:someValuesFrom dbpedia-owl:Location
+                                    ] .
+
+
+
+###  http://dbpedia.org/ontology/Film
+
+dbpedia-owl:Film rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                   owl:onProperty dbpedia-owl:director ;
+                                   owl:someValuesFrom foaf:Person
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty dbpedia-owl:distributor ;
+                                   owl:onClass dbpedia-owl:Company ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty dbpedia-owl:starring ;
+                                   owl:someValuesFrom dbpedia-owl:Actor
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty dbpedia-owl:releaseDate ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onDataRange xsd:date
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty dbpedia-owl:budget ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onDataRange xsd:double
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty foaf:name ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onDataRange xsd:string
+                                 ] .
+
+
+
+###  http://dbpedia.org/ontology/Language
+
+dbpedia-owl:Language rdf:type owl:Class ;
+                     
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                       owl:onProperty dbpedia-owl:spokenIn ;
+                                       owl:someValuesFrom dbpedia-owl:PopulatedPlace
+                                     ] .
+
+
+
+###  http://dbpedia.org/ontology/Location
+
+dbpedia-owl:Location rdf:type owl:Class .
+
+
+
+###  http://dbpedia.org/ontology/PopulatedPlace
+
+dbpedia-owl:PopulatedPlace rdf:type owl:Class ;
+                           
+                           rdfs:subClassOf dbpedia-owl:Location ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty dbpedia-owl:regionalLanguage ;
+                                             owl:someValuesFrom dbpedia-owl:Language
+                                           ] .
+
+
+
+###  http://xmlns.com/foaf/0.1/Image
+
+foaf:Image rdf:type owl:Class .
+
+
+
+###  http://xmlns.com/foaf/0.1/Person
+
+foaf:Person rdf:type owl:Class ;
+            
+            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty foaf:depiction ;
+                              owl:someValuesFrom foaf:Image
+                            ] .
+
+
+
+
+###  Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net
+
