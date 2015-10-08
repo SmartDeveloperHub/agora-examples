@@ -1,6 +1,6 @@
 #Agora-Examples
 
-A set of Python examples showing how to use Agora to retrieve fragments of data into a Linked Data context.
+A set of Python examples showing how to use Agora to retrieve fragments of data in a Linked Data context.
 
 ##Examples
 
