@@ -10,7 +10,7 @@ A set of Python examples showing how to use Agora to retrieve fragments of data 
 #####Consuming DBPedia Films using their URIs as Agora seeds 
 * Folder: ld-movies-seeds
 
-#Structure
+###Structure
 Each example contains:
 
 * A `README.md` file explaining its purpose and process.
@@ -18,7 +18,7 @@ Each example contains:
 * A `*.ttl` file that contains a turtle-based representation of the specific ontology.
 * A `main.py` python script that does the job.
 
-#Usage
+###Usage
 1. Create a Python virtualenv (recommended)
 2. Change to the specific folder of the example you want to run.
 3. Install dependencies: `pip install -r requirements.txt`
