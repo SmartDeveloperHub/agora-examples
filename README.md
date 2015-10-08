@@ -15,7 +15,7 @@ Each example contains:
 
 * A `README.md` file explaining its purpose and process.
 * A `requirements.txt` file that specifies the package dependencies that must be install in order to succesfully run the example.
-* A `*.ttl` file that contains a turtle-based representation of the specific ontology.
+* A `.ttl` file that contains a turtle-based representation of the specific ontology.
 * A `main.py` python script that does the job.
 
 ###Usage
