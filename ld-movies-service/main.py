@@ -83,11 +83,15 @@ if __name__ == '__main__':
     ni.ifaddresses('eth0')
     ip = ni.ifaddresses('eth0')[2][0]['addr']
 
-    # Clear existing amovies:Service seeds and self-register
+    # Clear existing amovies:Service and dbpedia-owl:Film seeds and self-register
     response = requests.get(urljoin(AGORA_HOST, 'seeds'))
     seeds = response.json()['seeds']
     if 'amovies:Service' in seeds.keys():
         for seed in seeds['amovies:Service']:
+            requests.delete(urljoin(AGORA_HOST, 'seeds/id/{}'.format(seed['id'])))
+    if 'dbpedia-owl:Film' in seeds.keys():
+        for seed in seeds['dbpedia-owl:Film']:
+            print u'Deleting {}'.format(seed['uri'])
             requests.delete(urljoin(AGORA_HOST, 'seeds/id/{}'.format(seed['id'])))
 
     requests.post(urljoin(AGORA_HOST, 'seeds'),
